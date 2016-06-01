@@ -1,12 +1,13 @@
 
 $radial_error = 0.1;
+$fn = 16;
 
-module cylinder_outer(height, radius, fn = 32) {
+module cylinder_outer(height, radius, fn=$fn) {
 	fudge = 1/cos(180/fn);
 	cylinder(h=height,r=radius*fudge+$radial_error, $fn=fn);
 }
 
-module cylinder_inner(height, radius, fn = 32) {
+module cylinder_inner(height, radius, fn=$fn) {
 	cylinder(h=height,r=radius-$radial_error,$fn=fn);
 }
 
@@ -26,9 +27,21 @@ module hole(diameter=3, depth=6, inset=10) {
 	translate([0, 0, depth]) cylinder_outer(inset, diameter, 32);
 }
 
+module countersunk_hole(diameter=3, depth=6, inset=10) {
+	hole(diameter, depth, inset);
+	translate([0, 0, depth-diameter/2]) cylinder(r1=diameter/2+$radial_error, r2=diameter+$radial_error, h=diameter/2);
+}
+
 module mounting_hole(diameter=3, depth=6, inset=10, outset=3) {
 	difference() {
 		cylinder_outer(depth, diameter/2+outset);
 		hole(diameter=diameter, depth=depth, inset=inset);
 	}
+}
+
+rotate(90, [1, 0, 0]) difference() {
+	cube([30, 10, 10]);
+	translate([5, 5, 0]) bolt(diameter=3, depth=8);
+	translate([15, 5, 0]) bolt(diameter=4, depth=8);
+	translate([25, 5, 0]) countersunk_hole(diameter=4, depth=8);
 }
