@@ -6,6 +6,12 @@ This case is designed to house the Melzi v2 board.
 
 This printer is inexpensive and generally well built but the frame is too thin and flexes too much. These parts are designed to assist with adding rigidity and holding the frame in alignment.
 
+### Melzi PCB
+
+This repository also contains a model for the Melzi v2 PCB in STL format. It is useful for making a case with the right openings for the various cables and ports.
+
+![Melzi PCB Render](photos/melzi.png)
+
 ## Parts Required
 
 - 4x M2x8 bolts for securing lid.
